@@ -76,7 +76,7 @@ public class AdminBoardController {
 		return "admin/userList";
 	}
    
-    //2. 특정 회원 정보 확인
+    //2. 특정 회원 정보 디테일 확인
     
 	@GetMapping("/userContentView")
 	public String userContentView(PagingVO pagingVO, UserVO userVO, BoardVO boardVO, Model model
