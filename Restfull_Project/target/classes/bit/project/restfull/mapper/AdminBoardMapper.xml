@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.project.restfull.mapper.AdminBoardMapper">
+	
+	<!-- 메인 게시판/게시글 기능 -->
+	<resultMap id="AttachmentVO" type="bit.project.restfull.vo.AttachmentVO" >
+		<id property="board_numbers" column="board_numbers"/>
+		<result property="filename" column="filename"/>
+		<result property="filedirectory" column="filedirectory"/>
+		<result property="filesize" column="filesize"/>
+	</resultMap>
+	
+	<resultMap id="BoardContents" type="bit.project.restfull.vo.AdminBoardVO">
+		<id property="board_numbers" column="board_numbers"/>	
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="hit" column="hit"/>
+		<result property="dates" column="dates"/>
+		<result property="member_id" column="member_id"/>
+		<result property="boardlist_numbers" column="boardlist_numbers"/>
+		<!-- name 컬럼명은 boardlist 테이블에 있는 name -->
+		<result property="boardlistName" column="name"/>
+		<result property="thumbnail" column="thumbnail"/>
+		<collection property="attachmentVO" javaType="bit.project.restfull.vo.AttachmentVO" resultMap="AttachmentVO"></collection>
+	</resultMap>
+
+	<resultMap id="BoardVO" type="bit.project.restfull.vo.BoardVO">
+		<id property="board_numbers" column="board_numbers"/>	
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="hit" column="hit"/>
+		<result property="dates" column="dates"/>
+		<result property="member_id" column="member_id"/>
+		<result property="boardlist_numbers" column="boardlist_numbers"/>
+		<result property="filter_numbers" column="filter_numbers"/>
+		<result property="destination_numbers" column="destination_numbers"/>
+		<result property="filterName" column="name"/>
+		<result property="location" column="location"/>
+		<result property="thumbnail" column="thumbnail"/>
+		<association property="destinationVO" javaType="bit.project.restfull.vo.DestinationVO" resultMap="DestinationVO"></association>
+	</resultMap>
+	
+	<!-- 필터가 있을 경우 다음의 getList를 호출 -->
+  	<select id="getFilterList" resultMap="BoardVO">
+	<![CDATA[
+		select b.*,
+		l.boardlist_numbers as boardlist_numbers,
+		l.name as boardName,
+		f.filter_numbers as filter_numbers,
+		f.name as filterName
+		from board b, boardlist l, filter f
+			where b.boardlist_numbers = l.boardlist_numbers
+                and b.filter_numbers = f.filter_numbers
+                and l.boardlist_numbers = #{boardlist_numbers}
+	]]>
+	</select>
+	
+	<resultMap id="SidoguVO" type="bit.project.restfull.vo.SidoguVO" >
+		<id property="sigungu_code" column="sigungu_code"/>
+		<result property="sidoCode" column="sidocode"/>
+		<result property="sidoName" column="sidoname"/>
+		<result property="sigunguName" column="sigunguname"/>
+	</resultMap>
+	
+	<resultMap id="DestinationContents" type="bit.project.restfull.vo.DestinationVO">
+		<id property="destination_numbers" column="destination_numbers"/>	
+		<result property="jibunaddress" column="jibunaddress"/>
+		<result property="doroaddress" column="doroaddress"/>
+		<result property="details" column="details"/>
+		<result property="lat" column="lat"/>
+		<result property="lng" column="lng"/>
+		<result property="sigungu_code" column="sigungu_code"/>
+		<result property="destination_name" column="destination_name"/>
+		<association property="sidoguVO" javaType="bit.project.restfull.vo.SidoguVO" resultMap="SidoguVO"></association>
+	</resultMap>
+	
+	<resultMap id="GoodsVO" type="bit.project.restfull.vo.GoodsVO">
+		<id property="goods_numbers" column="goods_numbers"/>	
+		<result property="destination_numbers" column="destination_numbers"/>
+		<result property="destination_name" column="destination_name"/>
+		<result property="name" column="name"/>
+		<result property="price" column="price"/>
+		<result property="amount" column="amount"/>
+		<result property="status" column="status"/>
+		<result property="sellstart" column="sellstart"/>
+		<result property="sellend" column="sellend"/>
+		<result property="seller" column="seller"/>
+	</resultMap>
+	
+	<!-- 여행코스 관련 상품 목록 -->
+	<select id="getRGoods"  resultMap="GoodsVO">
+	<![CDATA[
+		select * from goods where destination_numbers in
+	]]>
+		<foreach collection="array" item="item" open="(" close=")" separator=",">
+		 #{item}
+		</foreach>
+	</select>
+	
+	<!-- 특정상품 번호에 해당하는 구매예정 상품 목록 -->
+	<select id="myGoods"  resultType="bit.project.restfull.vo.GoodsVO">
+	<![CDATA[
+		select * from goods where goods_numbers in
+	]]>
+		<foreach collection="array" item="item" open="(" close=")" separator=",">
+		 #{item}
+		</foreach>
+	</select>
+	
+	<!-- 주문 정보 등록 -->
+	<insert id="insertRequest" parameterType="java.util.List" > 
+		<foreach item="item" index="index" collection="list" separator=" " open="INSERT ALL " close="SELECT * FROM DUAL">
+			into request 
+			(
+				REQUEST_NUMBERS,
+				DATES,
+				IMP_UID,
+				MEMBER_ID,
+				GOODS_NUMBERS,
+				DESTINATION_NUMBERS,
+				CANCEL,
+				MERCHANT_UID
+			) values
+			(
+				#{item.request_numbers} ,
+				sysdate, 
+				#{item.imp_uid, jdbcType=VARCHAR} , 
+				#{item.member_id} , 
+				#{item.goods_numbers},
+				#{item.destination_numbers},
+				#{item.cancel},
+				#{item.merchant_uid}
+			) 
+		</foreach>
+	</insert>
+
+
+	<resultMap id="RequestVO" type="bit.project.restfull.vo.RequestVO">
+		<id property="request_numbers" column="request_numbers"/>	
+		<result property="dates" column="dates"/>
+		<result property="imp_uid" column="imp_uid"/>
+		<result property="member_id" column="member_id"/>
+		<result property="goods_numbers" column="goods_numbers"/>
+		<result property="destination_name" column="destination_name"/>
+		<result property="cancel" column="cancel"/>
+		<result property="price" column="price"/>
+		<result property="merchant_uid" column="merchant_uid"/>
+		<result property="productName" column="productName"/>
+	</resultMap>
+
+	<!-- 여행코스 등록 -->
+	<insert id="insertTravelCourse" parameterType="java.util.List" > 
+		insert into TRAVEL 
+			(
+				TRAVEL_NUMBERS,
+				MEMBER_ID,
+				TCCONTENTS,
+				TCALIAS,
+				DATES,
+				SERIALNUM
+			)
+		select travel_seq.nextval, a.* from (
+		<foreach item="item" collection="list" separator="UNION ALL ">
+	    	select #{item.member_id},
+				#{item.tcContents},
+				#{item.tcAlias},
+				sysdate,
+				#{item.serialNum}
+				from dual
+		</foreach>) A
+	</insert>
+	
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.project.restfull.mapper.BoardMapper">
+	
+	<!-- 메인 게시판/게시글  -->
+	<resultMap id="DestinationVO" type="bit.project.restfull.vo.DestinationVO" >
+		<result property="jibunaddress" column="jibunaddress"/>
+		<result property="doroaddress" column="doroaddress"/>
+		<result property="details" column="details"/>
+		<result property="lat" column="lat"/>
+		<result property="lng" column="lng"/>
+		<result property="areacode" column="areacode"/>
+		<result property="si" column="si"/>
+		<result property="gu" column="gu"/>
+		<result property="destination_name" column="destination_name"/>
+	</resultMap>
+
+	<resultMap id="BoardContents" type="bit.project.restfull.vo.BoardVO">
+		<id property="board_numbers" column="board_numbers"/>	
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="hit" column="hit"/>
+		<result property="dates" column="dates"/>
+		<result property="member_id" column="member_id"/>
+		<result property="boardlist_numbers" column="boardlist_numbers"/>
+		<result property="filter_numbers" column="filter_numbers"/>
+		<result property="destination_numbers" column="destination_numbers"/>
+		<result property="filterName" column="name"/>
+		<result property="location" column="location"/>
+		<result property="thumbnail" column="thumbnail"/>
+		<association property="destinationVO" javaType="bit.project.restfull.vo.DestinationVO" resultMap="DestinationVO"></association>
+	</resultMap>
+
+</mapper>
