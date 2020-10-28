@@ -12,7 +12,87 @@
 
 <%@ include file="/WEB-INF/include/js-header.jsp"%>
 
-    <script>
+   
+
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 offset-lg-4">
+                    <div class="register-form">
+                        <h2>회원가입</h2>
+                        <form action="addUser" name="userInfo" method="post" id ="pwForm">
+                           <!--아이디 입력창-->
+                            <div class="group-input">
+                                <label for="member_id">아이디</label>
+                                <input type="text" id="member_id" name="member_id" maxlength="50" required>
+                                <input type="button"  class="con-id" value="중복확인" onclick="chkId()">
+                                
+                            </div>
+                            <!--비밀번호 입력창-->
+                            <div class="group-input">
+                                <label for="password">비밀번호</label>
+                                <input type="password" id="pw" name="pw" maxlength="50" placeholder="비밀번호 입력" required>
+                            </div>
+                            <!--비밀번호 재확인 입력창-->
+                            <div class="group-input">
+                                <label for="con-password">비밀번호 확인</label>
+                                <input type="password" id="pw2" name="pw2" maxlength="50" placeholder="비밀번호 재입력" required>
+                            </div>
+                            <!--이름 입력창-->
+                             <div class="group-input">
+                                <label for="name">이름</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <!--   <!--생년월일 입력창!!!!!!!!!!!-->
+                            <div class="group-input">
+                            	<label for="birth">생년월일</label>
+                            	<input type="date" id="birth" name="birth" min="1960-01-01" max="2000-12-31" required> 
+                            </div>
+
+                            <!--성별 입력창-->
+                                <div class="gender">
+                                <label for="gender" style="font">성별</label>
+                                <div class="row">
+                                    <div class="form-check col">
+                                        <input class="form-check-input" type="radio" id="gender" name="gender"  value="man" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            남자
+                                        </label>
+                                    </div>
+                                    <div class="form-check col">
+                                        <input class="form-check-input" type="radio" name="gender" value="woman">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            여자
+                                        </label>
+                                    </div>
+                                </div>
+                                </div>
+                            
+
+                            <!--이메일 입력창-->
+                            <div class="group-input">
+                                <label for="email">이메일</label>
+                                <input type="text" id="email" name="email" aria-describedby="emailHelp" placeholder="이메일주소 입력" required>
+                            </div>
+                            
+
+                            <input type="submit" class="site-btn register-btn" value="회원가입"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	
+	
+	
+	<%@ include file="/WEB-INF/include/js-footer.jsp"%>
+	</body>
+	
+	<script>
     var chkId = false;
     var regexp = /[0-9a-zA-Z]/;
     var text = $("#member_id").val();
@@ -101,79 +181,7 @@
            event.returnValue=false;
 	}
 	</script>
-
-    <!-- Register Section Begin -->
-    <div class="register-login-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 offset-lg-4">
-                    <div class="register-form">
-                        <h2>회원가입</h2>
-                        <form action="addUser" name="userInfo" method="post" id ="pwForm">
-                           <!--아이디 입력창-->
-                            <div class="group-input">
-                                <label for="member_id">아이디</label>
-                                <input type="text" id="member_id" name="member_id" maxlength="50" required>
-                                <input type="button"  class="con-id" value="중복확인" onclick="chkId()">
-                                
-                            </div>
-                            <!--비밀번호 입력창-->
-                            <div class="group-input">
-                                <label for="password">비밀번호</label>
-                                <input type="password" id="pw" name="pw" maxlength="50" placeholder="비밀번호 입력" required>
-                            </div>
-                            <!--비밀번호 재확인 입력창-->
-                            <div class="group-input">
-                                <label for="con-password">비밀번호 확인</label>
-                                <input type="password" id="pw2" name="pw2" maxlength="50" placeholder="비밀번호 재입력" required>
-                            </div>
-                            <!--이름 입력창-->
-                             <div class="group-input">
-                                <label for="name">이름</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            
-                            <!--   <!--생년월일 입력창!!!!!!!!!!!-->
-                            <div class="group-input">
-                            	<label for="birth">생년월일</label>
-                            	<input type="date" id="birth" name="birth" min="1960-01-01" max="2000-12-31" required> 
-                            </div>
-
-                            <!--성별 입력창-->
-                                <div class="gender">
-                                <label for="gender" style="font">성별</label>
-                                <div class="row">
-                                    <div class="form-check col">
-                                        <input class="form-check-input" type="radio" id="gender" name="gender"  value="man" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
-                                            남자
-                                        </label>
-                                    </div>
-                                    <div class="form-check col">
-                                        <input class="form-check-input" type="radio" name="gender" value="woman">
-                                        <label class="form-check-label" for="exampleRadios2">
-                                            여자
-                                        </label>
-                                    </div>
-                                </div>
-                                </div>
-                            
-
-                            <!--이메일 입력창-->
-                            <div class="group-input">
-                                <label for="email">이메일</label>
-                                <input type="text" id="email" name="email" aria-describedby="emailHelp" placeholder="이메일주소 입력" required>
-                            </div>
-                            
-
-                            <input type="submit" class="site-btn register-btn" value="회원가입"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+	
 	<script>
 	function chkId() {
 		var id = $('#member_id').val();
@@ -255,7 +263,5 @@
 		}
 		</script>
 	
-	
-	<%@ include file="/WEB-INF/include/js-footer.jsp"%>
-	</body>
+	 
 </html>

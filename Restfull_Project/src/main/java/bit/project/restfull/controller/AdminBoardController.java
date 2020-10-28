@@ -49,7 +49,6 @@ import lombok.extern.log4j.Log4j;
 //관리자 페이지 기능들
 public class AdminBoardController {
 
-	
 	private BoardService boardService;
 	private UserService userService;
 	private AdminBoardService adBoardService;

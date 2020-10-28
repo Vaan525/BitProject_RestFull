@@ -26,10 +26,11 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @NoArgsConstructor
 @AllArgsConstructor
-//로그인 관련 기능
 public class LoginController {
 	
 	private UserService userService;
+	
+	// 로그인 관련 기능
 	
 	//로그인
 	@GetMapping("/login")
