@@ -23,7 +23,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<mybatis-spring:scan base-package="bit.restfull.mapper"/>
+	<mybatis-spring:scan base-package="bit.project.restfull.mapper"/>
 	
 </beans>
 	

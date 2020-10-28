@@ -37,10 +37,10 @@
         <beans:property name="dataSource" ref="dataSource"/> <!-- 여기서 dateaSource는 공식이며 히카리 커넥션풀이다. -->
     </beans:bean>
     
-    <beans:bean id="customNoOpPasswordEncoder" class="bit.restfull.security.customNoOpPasswordEncoder"/>
+    <beans:bean id="customNoOpPasswordEncoder" class="bit.project.restfull.security.customNoOpPasswordEncoder"/>
     <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
     
-    <beans:bean id="customUserDetailsService" class="bit.restfull.security.CustomUserDetailsService"/>
+    <beans:bean id="customUserDetailsService" class="bit.project.restfull.security.CustomUserDetailsService"/>
     
 	
     <!--  provider  -->
