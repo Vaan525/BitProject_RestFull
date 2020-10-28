@@ -41,9 +41,201 @@
 						       <span class="carousel-control-next-icon"></span>
 						    </a>
 						</div>
-						 <!--------------------------
-                        	 Carousel 스크립트 start
-                         ----------------------------->
+
+						
+						<div class="wrapper">
+							<div class="likeanddrop">
+								 <!--------------------------
+		                        		좋아요 버튼 start
+		                         ----------------------------->
+									<sec:authorize access="isAnonymous()">
+	            						<button type="button" name="loginNeed">
+										<i id="like-button" class="fa fa-heart-o"></i>
+										</button>
+										<span class="like_count"></span>	
+										
+													
+									</sec:authorize>
+									
+									<sec:authorize access="isAuthenticated()">
+									<sec:authentication var="principal" property="principal"/>
+										<c:if test="${ principal.user.member_id != null }">
+											<input type="hidden" name="member_id" value="${principal.user.member_id}"/>
+										</c:if>
+										<button type="button" id="like_update">
+											<i id="like-button" class="fa fa-heart-o"></i>
+										</button>
+										<span class="like_count"></span>
+										
+									</sec:authorize>
+								</div>
+							 <!--------------------------
+		                        	좋아요 버튼  end
+		                     ----------------------------->
+		                     
+		                     
+		                    <!--------------------------
+		                        	드롭다운 버튼  start
+		                     ----------------------------->
+							
+								<div class="dropdown">
+							 		<button type="button" class="btn dropdown" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							  		  ...
+							 		</button>
+								    <div class="dropdown-menu">
+								    	<!-- 자신이 쓴 글일 때만 수정/삭제 버튼 노출 -->
+									    <c:if test="${principal.user.member_id eq contentView.member_id}">
+									      <a class="dropdown-item" href="user/modify?board_numbers=${contentView.board_numbers}">수정</a>
+									      <a class="dropdown-item" href="user/delete?board_numbers=${contentView.board_numbers}">삭제</a>
+									    </c:if>
+								      <a class="dropdown-item" href="#DecModal" data-toggle="modal">신고</a>
+								    </div>
+							
+								</div>
+						    
+								<!-- 신고 Modal -->
+								<div id="DecModal" class="modal fade" role="dialog">  <!-- fade는 투명 효과 -->
+								  <div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      <div class="modal-header">
+								       	<h4>신고작성창</h4>
+								        <button type="button" class="close" data-dismiss="modal">x</button>
+								        </div>
+								        
+								      <div class="modal-body">
+								         <div class="mb-title">
+								          <input type="hidden" name="boardlist_numbers" id="boardlist_numbers" value="3"/>
+								          <input type="hidden" name="member_id" id="member_id" value="${principal.user.member_id}">
+								          <input type="hidden" name="report_numbers" id="report_numbers"value="${contentView.board_numbers}">
+								            <b>신고 대상글 :</b><input type="text" name="title" id="title" value="${contentView.title}" readonly>
+								         </div>
+								           <hr/>
+								         <div class="mb-reason">
+								            <b>신고 사유</b>
+								               <br/>    
+								                <input type="radio" name="report_reason" value="11" checked ><label for="r1">음란성</label>
+								                <input type="radio" name="report_reason" value="12" ><label for="r2">홍보 및 허위</label>
+								                <input type="radio" name="report_reason" value="13" ><label for="r3">기타</label>    
+								               <div class="other-reason">
+								                  <textarea name="report_reason" id="reasontext" placeholder="기타사유를 입력해주세요."  maxlength="500">
+								                  </textarea>
+								               </div>
+								            
+								          </div>  
+								         
+								
+								      </div>
+								      
+								      <!-- Modal footer -->
+								      <div class="modal-footer">
+								        <input type="button" id="finish" class="btn btn-default" data-dismiss="modal" value="신고">
+								      </div>
+								      
+								      
+								    </div>
+								  </div>
+								</div>	  
+						  	</div>
+						</div>
+                       
+                        <div class="write-view">
+                            <div class="board-contents">
+                                <div class="view-hit">조회수 - ${contentView.hit} 회</div>
+                                <div class="view-dates">${contentView.dates} </div>
+                                <br/>
+                                <div class="view-loc">${contentView.location}</div> <br>
+                                <div class="view-id">${contentView.member_id}</div>
+                                <div class="view-title">${contentView.title}</div>
+                                <div class="view-contents">${contentView.contents}</div>
+                            </div>
+                        </div>
+					</div>
+				</div>
+           
+				
+				<!--왼쪽부분end-->
+				<div class="col-lg-4 order-lg-2">
+                    <div class="rightbox">
+                        <div class="replycomment"> <!--댓글 부분-->
+                            <!-- 댓글 작성칸 -->
+                            <div id="addMyComment">
+                                <span id="myId">${principal.user.member_id}</span>
+                                <div class="comment-reg">
+                                    <input type="text" placeholder="댓글을 입력하세요" id="reply" name="reply"/>
+                                    <input id="addComment" type="button" value="✔"/>
+                                </div>
+                            </div>
+
+                            <!-- 댓글 list -->
+                            <div id="commentlist">
+                                <!-- 사용자 프로필 사진 or 사용자 아이디 -->
+                                <div>
+
+                                </div>
+
+                                <!-- 댓글 -->
+                                <div id="reply">
+                                    <section class="replyForm">
+                                        <table id="list-table">
+
+                                        </table>
+                                    </section>
+                                </div>
+                            </div>
+                            
+				            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--오른쪽 댓글 부분 end-->
+        </div>
+    </section>
+    
+    <hr/>        
+    <!-------------------
+   		아래쪽 관련게시글 출력
+    --------------------->
+        
+    <div class="underbox spad">
+        <div class="container">
+            <div class="row">
+                <!-- 게시물 list -->
+                <div class="col-lg-12">
+                    <div class="listboard">
+                        <h4>✨관련게시글✨</h4>
+                    </div>
+                </div>
+            </div>
+                    
+            <div class="row">
+               <c:forEach items="${others}" var="vo">
+                    <div class="col-lg-3 col-sm-6">
+                       <div class="product-item">
+                            <div class="pi-pic">
+                                <a href="contentView?board_numbers=${vo.board_numbers}" class="thumbnail">
+                                    <img src="${vo.thumbnail }"/>
+                                </a>           
+                            </div>
+
+                            <div class="pi-text">
+                                <div class="caption-title">${vo.title}</div>
+                                
+                                <div class="caption-loc">${vo.location}</div>
+                                
+                                <div class="caption-destination">${vo.destinationVO.jibunaddress}</div>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach> 
+            </div>
+        </div>
+    </div> 
+
+	<%@ include file="/WEB-INF/include/js-footer.jsp"%>
+</body>
 						<script>
 							$(function(){  
 								var filelist = new Array();
@@ -67,39 +259,15 @@
 							});
 														
 						</script>
-						 <!--------------------------
-                        	 Carousel 스크립트 end
-                         ----------------------------->
 						
-						<div class="wrapper">
-							<div class="likeanddrop">
-								 <!--------------------------
-		                        		좋아요 버튼 start
-		                         ----------------------------->
-									<sec:authorize access="isAnonymous()">
-	            						<button type="button" name="loginNeed">
-										<i id="like-button" class="fa fa-heart-o"></i>
-										</button>
-										<span class="like_count"></span>	
-										
-										<script>
+						<script>
 										$(document).on("click", "button[name='loginNeed']",function(){
 											
 											console.log("loginNeed");
 											
 										});
-										</script>				
-									</sec:authorize>
-									
-									<sec:authorize access="isAuthenticated()">
-									<sec:authentication var="principal" property="principal"/>
-										<c:if test="${ principal.user.member_id != null }">
-											<input type="hidden" name="member_id" value="${principal.user.member_id}"/>
-										</c:if>
-										<button type="button" id="like_update">
-											<i id="like-button" class="fa fa-heart-o"></i>
-										</button>
-										<span class="like_count"></span>
+										</script>	
+										
 										<script>
 											$(function(){
 												var board_numbers = $('input[name=board_numbers]').val();
@@ -161,65 +329,8 @@
 											likeCount(); // 처음 시작했을 때 실행되도록 해당 함수 호출
 											});
 											</script>
-									</sec:authorize>
-								</div>
-							
-							
-							 <!--------------------------
-		                        	좋아요 버튼  end
-		                     ----------------------------->
-		                     
-		                    <!--------------------------
-		                        	드롭다운 버튼  start
-		                     ----------------------------->
-							
-								<div class="dropdown">
-							 		<button type="button" class="btn dropdown" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							  		  ...
-							 		</button>
-								    <div class="dropdown-menu">
-								    	<!-- 자신이 쓴 글일 때만 수정/삭제 버튼 노출 -->
-									    <c:if test="${principal.user.member_id eq contentView.member_id}">
-									      <a class="dropdown-item" href="user/modify?board_numbers=${contentView.board_numbers}">수정</a>
-									      <a class="dropdown-item" href="user/delete?board_numbers=${contentView.board_numbers}">삭제</a>
-									    </c:if>
-								      <a class="dropdown-item" href="#DecModal" data-toggle="modal">신고</a>
-								    </div>
-							
-								</div>
-						    
-								<!-- 신고 Modal -->
-								<div id="DecModal" class="modal fade" role="dialog">  <!-- fade는 투명 효과 -->
-								  <div class="modal-dialog">
-								
-								    <!-- Modal content-->
-								    <div class="modal-content">
-								      <div class="modal-header">
-								       	<h4>신고작성창</h4>
-								        <button type="button" class="close" data-dismiss="modal">x</button>
-								        </div>
-								        
-								      <div class="modal-body">
-								         <div class="mb-title">
-								          <input type="hidden" name="boardlist_numbers" id="boardlist_numbers" value="3"/>
-								          <input type="hidden" name="member_id" id="member_id" value="${principal.user.member_id}">
-								          <input type="hidden" name="report_numbers" id="report_numbers"value="${contentView.board_numbers}">
-								            <b>신고 대상글 :</b><input type="text" name="title" id="title" value="${contentView.title}" readonly>
-								         </div>
-								           <hr/>
-								         <div class="mb-reason">
-								            <b>신고 사유</b>
-								               <br/>    
-								                <input type="radio" name="report_reason" value="11" checked ><label for="r1">음란성</label>
-								                <input type="radio" name="report_reason" value="12" ><label for="r2">홍보 및 허위</label>
-								                <input type="radio" name="report_reason" value="13" ><label for="r3">기타</label>    
-								               <div class="other-reason">
-								                  <textarea name="report_reason" id="reasontext" placeholder="기타사유를 입력해주세요."  maxlength="500">
-								                  </textarea>
-								               </div>
-								            
-								          </div>  
-								         <!--기타 클릭시 텍스트 입력 가능 script-->
+											
+									<!--기타 클릭시 텍스트 입력 가능 script-->
 								         <script>
 								          $(document).ready(function(){
 								
@@ -245,15 +356,8 @@
 								            reasonchecked();
 								        });
 								          </script>
-								
-								      </div>
-								      
-								      <!-- Modal footer -->
-								      <div class="modal-footer">
-								        <input type="button" id="finish" class="btn btn-default" data-dismiss="modal" value="신고">
-								      </div>
-								      
-								      <script>
+								          
+								          <script>
 								      $("#finish").click(function(e){
 								         e.preventDefault();
 								
@@ -288,58 +392,8 @@
 								      
 								      
 								      </script>
-								    </div>
-								  </div>
-								</div>	  
-						  	</div>
-						</div>
-                       
-                        <div class="write-view">
-                            <div class="board-contents">
-                                <div class="view-hit">조회수 - ${contentView.hit} 회</div>
-                                <div class="view-dates">${contentView.dates} </div>
-                                <br/>
-                                <div class="view-loc">${contentView.location}</div> <br>
-                                <div class="view-id">${contentView.member_id}</div>
-                                <div class="view-title">${contentView.title}</div>
-                                <div class="view-contents">${contentView.contents}</div>
-                            </div>
-                        </div>
-					</div>
-				</div>
-           
-				
-				<!--왼쪽부분end-->
-				<div class="col-lg-4 order-lg-2">
-                    <div class="rightbox">
-                        <div class="replycomment"> <!--댓글 부분-->
-                            <!-- 댓글 작성칸 -->
-                            <div id="addMyComment">
-                                <span id="myId">${principal.user.member_id}</span>
-                                <div class="comment-reg">
-                                    <input type="text" placeholder="댓글을 입력하세요" id="reply" name="reply"/>
-                                    <input id="addComment" type="button" value="✔"/>
-                                </div>
-                            </div>
-
-                            <!-- 댓글 list -->
-                            <div id="commentlist">
-                                <!-- 사용자 프로필 사진 or 사용자 아이디 -->
-                                <div>
-
-                                </div>
-
-                                <!-- 댓글 -->
-                                <div id="reply">
-                                    <section class="replyForm">
-                                        <table id="list-table">
-
-                                        </table>
-                                    </section>
-                                </div>
-                            </div>
-                            
-				            <script>
+								      
+								      <script>
                                 $(function(){
                                     var board_numbers = ${contentView.board_numbers};
                                     var member_id = $('#myId').text();
@@ -423,54 +477,4 @@
                                     commentList(); // 처음 시작했을 때 실행되도록 해당 함수 호출
                                 });
                             </script>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--오른쪽 댓글 부분 end-->
-        </div>
-    </section>
-    
-    <hr/>        
-    <!-------------------
-   		아래쪽 관련게시글 출력
-    --------------------->
-        
-    <div class="underbox spad">
-        <div class="container">
-            <div class="row">
-                <!-- 게시물 list -->
-                <div class="col-lg-12">
-                    <div class="listboard">
-                        <h4>✨관련게시글✨</h4>
-                    </div>
-                </div>
-            </div>
-                    
-            <div class="row">
-               <c:forEach items="${others}" var="vo">
-                    <div class="col-lg-3 col-sm-6">
-                       <div class="product-item">
-                            <div class="pi-pic">
-                                <a href="contentView?board_numbers=${vo.board_numbers}" class="thumbnail">
-                                    <img src="${vo.thumbnail }"/>
-                                </a>           
-                            </div>
-
-                            <div class="pi-text">
-                                <div class="caption-title">${vo.title}</div>
-                                
-                                <div class="caption-loc">${vo.location}</div>
-                                
-                                <div class="caption-destination">${vo.destinationVO.jibunaddress}</div>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach> 
-            </div>
-        </div>
-    </div> 
-
-	<%@ include file="/WEB-INF/include/js-footer.jsp"%>
-</body>
 </html>
