@@ -31,7 +31,9 @@ import lombok.extern.log4j.Log4j;
 //회원가입 하지 않아도 사용가능한 사용자 기능들
 public class HomeController {
 	
+	@Autowired
 	private BoardService boardService;
+	@Autowired
 	private AdminBoardService adBoardService;
 	
 	//인덱스 페이지

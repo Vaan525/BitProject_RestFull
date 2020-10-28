@@ -56,38 +56,7 @@
             </div>
          </div>
          
- 		<!-- 자동완성 자바스크립트 -->
-        <script>
-        $(function() {
-        	
-	        var searchSource = [
-				"부산","부천","부경",
-				"서울","서산","광주","전주","여수","여주","대전",
-				"제주도","거제도","인천","양양","강릉"
-	        ];
-	        
-	        $("#searchbox").autocomplete({
-	        	source: searchSource,
-	        	select : function(event, ui) {
-	        		console.log(ui.item);
-	        	},
-	        	focus :function(event, ui) {
-	        		return false;
-	        	},
-	        	minLength:1,
-	        	autoFocus : true,
-	        	classes : {
-	        		"ui-autocomplete" : "highlight"
-	        	},
-	        	delay : 500,
-	        	close : function(event) {
-	        		console.log(event);
-	        	}
-	        	
-	        });
-  
-   		 });
-        </script>
+ 		
          
         <div class="container">
                 <div class="inner-header">
@@ -179,7 +148,173 @@
 		                    <input id="submit" type="button" value="주소 검색">
 		                </div>
 		                <div id="map" style="width: 100%; height: 350px; position: relative; overflow: hidden;">
-		                <script>
+		                
+		          		</div>
+		          		<!-- 입력할 주소 출력 -->
+						<div>
+							mainAddr : <input id="mainAddr" type="text" style="width:50%" >
+			          		detail Addr : <input id="details" type="text" style="width:50%">
+			          	</div>
+					</div>
+					
+		          <!-- Modal footer -->
+					<div class="modal-footer">
+			            <button id="complete" type="button" class="btn btn-success" data-dismiss="modal">확인</button>
+			            <!-- data-dismiss 속성 : 모달 닫기 기능 적용 -->
+		          	</div>
+		          
+			          
+		        </div>
+		      </div>
+		    </div>
+	
+			<div id="locationInfo">
+			</div>
+		  </div>
+			
+			
+	<br>
+	</form>
+                                 </div>
+                             </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-8 col-sm-9 order-2 order-lg-2">
+                    <div class="write-right">
+                        <div class="write-title">
+                            <h4>제목</h4>
+                            <input type="text" id="title">
+                        </div>
+                        
+                        <div class="write-content">
+                            <input type="textarea" id="content" placeholder="내용을 입력하세요." maxlength="500">
+                         </div>
+
+                        <div class="write-btn">
+                            <button type="button" class="finish-btn">
+                                 <a href="#">완료</a>  
+                             </button>
+                        </div>
+                                
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+   <!--ajax로 받아야하는 부분-마이페이지 start-->
+
+
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-left">
+                        <div class="footer-logo">
+                            <a href="#"><img src="img/LOGOsmall.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello.colorlib@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1">
+                    <div class="footer-widget">
+                        <h5>Information</h5>
+                        <ul>
+                            <li><a href="#">회사소개</a></li>
+                            <li><a href="#">이용약관</a></li>
+                            <li><a href="#">운영정책</a></li>
+                            <li><a href="#">여행지등록</a></li>
+                            <li><a href="#">고객센터</a></li>
+                            <li><a href="#">개인정보처리방침</a></li>
+                            <li><a href="#">청소년보호방침</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="newslatter-item">
+                        <h5>새로운 소식 받기</h5>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#" class="subscribe-form">
+                            <input type="text" placeholder="Enter Your Mail">
+                            <button type="button">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-reserved">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="copyright-text">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> 2020 RestFuLL. All rights reserved.
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div>
+                        <div class="payment-pic">
+                            <img src="img/payment-method.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/jquery.dd.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+<!-- 자동완성 자바스크립트 -->
+        <script>
+        $(function() {
+        	
+	        var searchSource = [
+				"부산","부천","부경",
+				"서울","서산","광주","전주","여수","여주","대전",
+				"제주도","거제도","인천","양양","강릉"
+	        ];
+	        
+	        $("#searchbox").autocomplete({
+	        	source: searchSource,
+	        	select : function(event, ui) {
+	        		console.log(ui.item);
+	        	},
+	        	focus :function(event, ui) {
+	        		return false;
+	        	},
+	        	minLength:1,
+	        	autoFocus : true,
+	        	classes : {
+	        		"ui-autocomplete" : "highlight"
+	        	},
+	        	delay : 500,
+	        	close : function(event) {
+	        		console.log(event);
+	        	}
+	        	
+	        });
+  
+   		 });
+        </script>
+        
+        <script>
 		                    var map = new naver.maps.Map("map", {
 		                    center: new naver.maps.LatLng(37.3595316, 127.1052133),
 		                    zoom: 15,
@@ -326,21 +461,7 @@
 		                    naver.maps.onJSContentLoaded = initGeocoder;
 		                    naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
 		                    </script>
-		          		</div>
-		          		<!-- 입력할 주소 출력 -->
-						<div>
-							mainAddr : <input id="mainAddr" type="text" style="width:50%" >
-			          		detail Addr : <input id="details" type="text" style="width:50%">
-			          	</div>
-					</div>
-					
-		          <!-- Modal footer -->
-					<div class="modal-footer">
-			            <button id="complete" type="button" class="btn btn-success" data-dismiss="modal">확인</button>
-			            <!-- data-dismiss 속성 : 모달 닫기 기능 적용 -->
-		          	</div>
-		          
-			          <script>
+		                    <script>
 			          $("#complete").on("click", function(e) {
 			        	  e.preventDefault();
 				          var mainAddr = $("#mainAddr").val(); 
@@ -368,122 +489,4 @@
 				          $(info).append('입력된 위치 정보 : <input type="text" name="location" value="'+mainAddr.concat(" ", details)+'" readonly/>')
 			          });
 			          </script>
-		        </div>
-		      </div>
-		    </div>
-	
-			<div id="locationInfo">
-			</div>
-		  </div>
-			
-			
-	<br>
-	</form>
-                                 </div>
-                             </div>
-                        
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-8 col-sm-9 order-2 order-lg-2">
-                    <div class="write-right">
-                        <div class="write-title">
-                            <h4>제목</h4>
-                            <input type="text" id="title">
-                        </div>
-                        
-                        <div class="write-content">
-                            <input type="textarea" id="content" placeholder="내용을 입력하세요." maxlength="500">
-                         </div>
-
-                        <div class="write-btn">
-                            <button type="button" class="finish-btn">
-                                 <a href="#">완료</a>  
-                             </button>
-                        </div>
-                                
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-   <!--ajax로 받아야하는 부분-마이페이지 start-->
-
-
-
-    <!-- Footer Section Begin -->
-    <footer class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="footer-left">
-                        <div class="footer-logo">
-                            <a href="#"><img src="img/LOGOsmall.png" alt=""></a>
-                        </div>
-                        <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello.colorlib@gmail.com</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1">
-                    <div class="footer-widget">
-                        <h5>Information</h5>
-                        <ul>
-                            <li><a href="#">회사소개</a></li>
-                            <li><a href="#">이용약관</a></li>
-                            <li><a href="#">운영정책</a></li>
-                            <li><a href="#">여행지등록</a></li>
-                            <li><a href="#">고객센터</a></li>
-                            <li><a href="#">개인정보처리방침</a></li>
-                            <li><a href="#">청소년보호방침</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="newslatter-item">
-                        <h5>새로운 소식 받기</h5>
-                        <p>Get E-mail updates about our latest shop and special offers.</p>
-                        <form action="#" class="subscribe-form">
-                            <input type="text" placeholder="Enter Your Mail">
-                            <button type="button">Subscribe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright-reserved">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="copyright-text">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> 2020 RestFuLL. All rights reserved.
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </div>
-                        <div class="payment-pic">
-                            <img src="img/payment-method.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
-
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery.zoom.min.js"></script>
-    <script src="js/jquery.dd.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
-
 </html>

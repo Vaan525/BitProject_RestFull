@@ -49,7 +49,21 @@
 						       <span class="carousel-control-next-icon"></span>
 						     </a>
 						</div>
-						<script>
+						
+		</div>
+	<hr/>					
+	제목 : <input type="text" name="title" value="${modifyView.title}">
+	<hr/>
+	내용 : <textarea rows="10" cols="50" name="contents" placeholder="최대 500자 까지 작성 가능합니다." maxlength="500">
+	${modifyView.contents}
+	</textarea>
+	<hr/>
+	위치 : <input type="text" name="location" value="${modifyView.location}" readOnly>
+	<hr/>
+	<input type="submit" id="submit" value="완료" style="position:absolute;"/>
+</form>
+</body>
+<script>
 							$(function(){  
 								var filelist = new Array();
 								
@@ -71,17 +85,4 @@
 							});
 							
 						</script>
-		</div>
-	<hr/>					
-	제목 : <input type="text" name="title" value="${modifyView.title}">
-	<hr/>
-	내용 : <textarea rows="10" cols="50" name="contents" placeholder="최대 500자 까지 작성 가능합니다." maxlength="500">
-	${modifyView.contents}
-	</textarea>
-	<hr/>
-	위치 : <input type="text" name="location" value="${modifyView.location}" readOnly>
-	<hr/>
-	<input type="submit" id="submit" value="완료" style="position:absolute;"/>
-</form>
-</body>
 </html>

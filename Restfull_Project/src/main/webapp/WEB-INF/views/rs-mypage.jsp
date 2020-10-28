@@ -55,38 +55,7 @@
             </div>
          </div>
          
- 		<!-- 자동완성 자바스크립트 -->
-        <script>
-        $(function() {
-        	
-	        var searchSource = [
-				"부산","부천","부경",
-				"서울","서산","광주","전주","여수","여주","대전",
-				"제주도","거제도","인천","양양","강릉"
-	        ];
-	        
-	        $("#searchbox").autocomplete({
-	        	source: searchSource,
-	        	select : function(event, ui) {
-	        		console.log(ui.item);
-	        	},
-	        	focus :function(event, ui) {
-	        		return false;
-	        	},
-	        	minLength:1,
-	        	autoFocus : true,
-	        	classes : {
-	        		"ui-autocomplete" : "highlight"
-	        	},
-	        	delay : 500,
-	        	close : function(event) {
-	        		console.log(event);
-	        	}
-	        	
-	        });
-  
-   		 });
-        </script>
+ 		
          
         <div class="container">
                 <div class="inner-header">
@@ -385,4 +354,37 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> 2020 
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 </body>
+
+<!-- 자동완성 자바스크립트 -->
+        <script>
+        $(function() {
+        	
+	        var searchSource = [
+				"부산","부천","부경",
+				"서울","서산","광주","전주","여수","여주","대전",
+				"제주도","거제도","인천","양양","강릉"
+	        ];
+	        
+	        $("#searchbox").autocomplete({
+	        	source: searchSource,
+	        	select : function(event, ui) {
+	        		console.log(ui.item);
+	        	},
+	        	focus :function(event, ui) {
+	        		return false;
+	        	},
+	        	minLength:1,
+	        	autoFocus : true,
+	        	classes : {
+	        		"ui-autocomplete" : "highlight"
+	        	},
+	        	delay : 500,
+	        	close : function(event) {
+	        		console.log(event);
+	        	}
+	        	
+	        });
+  
+   		 });
+        </script>
 </html>
